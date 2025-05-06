@@ -108,9 +108,11 @@ document.addEventListener("keydown", async (e) => {
     rowInfo.inputLength === 5 &&
     (await validateUserInput(rowInfo.inputValue))
   ) {
-    if (guessCounter === 5) {
+    if (guessCounter === 5 && rowInfo.inputValue != wordOfTheDay) {
       let pTag = document.createElement("p");
-      pTag.innerText = "All Done";
+      pTag.innerText = `Better Luck Next Time! Todays Word: ${wordOfTheDay}`;
+      pTag.style.fontSize = "50px";
+      pTag.style.textAlign = "center";
       wordleContainer.append(pTag);
     }
     guessCounter++;
