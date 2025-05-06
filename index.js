@@ -81,6 +81,8 @@ function submittedGuessCheck(userGuess) {
     if (userGuess[i] === wordOfTheDay[i]) {
       specificInput.className = "correct";
       matchedIndices[i] = true;
+    } else {
+      specificInput.className = "not-in-word";
     }
   }
   for (let i = 0; i < 5; i++) {

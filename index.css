@@ -1,4 +1,9 @@
+@font-face {
+  font-family: "Outfit", sans-serif;
+  src: url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+}
 * {
+  font-family: "Outfit", sans-serif;
   box-sizing: border-box;
   margin: 0px;
   padding: 0px;
@@ -10,6 +15,7 @@
 h1 {
   text-align: center;
   font-size: 100px;
+  font-weight: 500;
 }
 
 .wordle-container ul {
@@ -26,6 +32,7 @@ input {
   font-size: 120px;
   text-align: center;
   caret-color: transparent;
+  text-transform: uppercase;
 }
 
 .correct {
@@ -51,5 +58,18 @@ input {
 @keyframes almost-correct-animation {
   to {
     background-color: lightyellow;
+  }
+}
+
+.not-in-word {
+  background-color: transparent;
+  animation-name: not-in-word-animation;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes not-in-word-animation {
+  to {
+    background-color: rgb(169, 169, 169);
   }
 }
