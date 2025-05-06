@@ -30,13 +30,26 @@ input {
 
 .correct {
   background-color: transparent;
-  animation-name: test;
+  animation-name: correct-animation;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
 }
 
-@keyframes test {
+@keyframes correct-animation {
   to {
     background-color: lightgreen;
+  }
+}
+
+.almost-correct {
+  background-color: transparent;
+  animation-name: almost-correct-animation;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes almost-correct-animation {
+  to {
+    background-color: lightyellow;
   }
 }

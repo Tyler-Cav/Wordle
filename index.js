@@ -1,6 +1,29 @@
 let wordleContainer = document.querySelector(".wordle-container");
 let guessCounter = 0;
-let wordOfTheDay = "stoop";
+let wordOfTheDay = "";
+
+async function getWordOfTheDay() {
+  let callApi = await fetch("https://words.dev-apis.com/word-of-the-day");
+  let responseText = await callApi.json();
+  wordOfTheDay = responseText.word;
+}
+
+async function validateUserInput(word) {
+  const response = await fetch("https://words.dev-apis.com/validate-word", {
+    method: "POST",
+    body: JSON.stringify({ word: `${word}` }),
+  });
+  let check = await response.json();
+  let isWord = check.validWord;
+  return isWord;
+}
+
+async function initializeGame() {
+  await getWordOfTheDay();
+  await validateUserInput();
+}
+
+initializeGame();
 
 // Only allowing certain keys to interact with the page
 function isLetter(letter) {
@@ -42,7 +65,7 @@ function userGuessLengthAndValue() {
   inputs.forEach((input) => {
     if (input.value.length === 1) {
       rowInputObject.inputLength++;
-      rowInputObject.inputValue += input.value;
+      rowInputObject.inputValue += input.value.toLowerCase();
     }
   });
   return rowInputObject;
@@ -50,22 +73,31 @@ function userGuessLengthAndValue() {
 
 function submittedGuessCheck(userGuess) {
   for (let i = 0; i < 5; i++) {
+    let specificInput = document.querySelector(
+      `#row-${guessCounter}-input${i + 1}`
+    );
     if (userGuess[i] === wordOfTheDay[i]) {
-      let specificInput = document.querySelector(
-        `#row-${guessCounter}-input${i + 1}`
-      );
-      //   specificInput.style.backgroundColor = "lightgreen";
       specificInput.className = "correct";
-      console.log(`letter at position ${i} is correct`);
     } else if (wordOfTheDay.includes(userGuess[i])) {
-      console.log(`${userGuess[i]} is included but wrong spot`);
+      let noDoubleDipCheck = wordOfTheDay.split("");
+      for (let z = 0; z < 5; z++) {
+        if (userGuess[i] === noDoubleDipCheck[z]) {
+          noDoubleDipCheck[z] = "x";
+          specificInput.className = "almost-correct";
+          break;
+        }
+      }
     }
   }
 }
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", async (e) => {
   let rowInfo = userGuessLengthAndValue();
-  if (e.key === "Enter" && rowInfo.inputLength === 5) {
+  if (
+    e.key === "Enter" &&
+    rowInfo.inputLength === 5 &&
+    (await validateUserInput(rowInfo.inputValue))
+  ) {
     if (guessCounter === 5) {
       let pTag = document.createElement("p");
       pTag.innerText = "All Done";
