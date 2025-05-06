@@ -81,10 +81,12 @@ function submittedGuessCheck(userGuess) {
     } else if (wordOfTheDay.includes(userGuess[i])) {
       let noDoubleDipCheck = wordOfTheDay.split("");
       for (let z = 0; z < 5; z++) {
-        if (userGuess[i] === noDoubleDipCheck[z]) {
+        if (
+          userGuess[i] === noDoubleDipCheck[z] &&
+          userGuess[i] != userGuess[z]
+        ) {
           noDoubleDipCheck[z] = "x";
-          specificInput.className = "almost-correct";
-          break;
+          specificInput.className = "almost-correct";   
         }
       }
     }
