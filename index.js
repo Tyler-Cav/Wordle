@@ -72,21 +72,27 @@ function userGuessLengthAndValue() {
 }
 
 function submittedGuessCheck(userGuess) {
+  let wordOfDay = wordOfTheDay.split("");
+  let matchedIndices = new Array(5).fill(false);
   for (let i = 0; i < 5; i++) {
     let specificInput = document.querySelector(
       `#row-${guessCounter}-input${i + 1}`
     );
     if (userGuess[i] === wordOfTheDay[i]) {
       specificInput.className = "correct";
-    } else if (wordOfTheDay.includes(userGuess[i])) {
-      let noDoubleDipCheck = wordOfTheDay.split("");
+      matchedIndices[i] = true;
+    }
+  }
+  for (let i = 0; i < 5; i++) {
+    let specificInput = document.querySelector(
+      `#row-${guessCounter}-input${i + 1}`
+    );
+    if (userGuess[i] !== wordOfTheDay[i] && wordOfDay.includes(userGuess[i])) {
       for (let z = 0; z < 5; z++) {
-        if (
-          userGuess[i] === noDoubleDipCheck[z] &&
-          userGuess[i] != userGuess[z]
-        ) {
-          noDoubleDipCheck[z] = "x";
-          specificInput.className = "almost-correct";   
+        if (userGuess[i] === wordOfDay[z] && !matchedIndices[z]) {
+          matchedIndices[z] = true;
+          specificInput.className = "almost-correct";
+          break;
         }
       }
     }
