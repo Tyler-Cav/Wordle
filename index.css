@@ -7,6 +7,11 @@
   margin: 0px;
 }
 
+h1 {
+  text-align: center;
+  font-size: 100px;
+}
+
 .wordle-container ul {
   display: flex;
   flex-direction: row;
@@ -21,4 +26,17 @@ input {
   font-size: 120px;
   text-align: center;
   caret-color: transparent;
+}
+
+.correct {
+  background-color: transparent;
+  animation-name: test;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes test {
+  to {
+    background-color: lightgreen;
+  }
 }

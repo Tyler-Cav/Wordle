@@ -48,6 +48,21 @@ function userGuessLengthAndValue() {
   return rowInputObject;
 }
 
+function submittedGuessCheck(userGuess) {
+  for (let i = 0; i < 5; i++) {
+    if (userGuess[i] === wordOfTheDay[i]) {
+      let specificInput = document.querySelector(
+        `#row-${guessCounter}-input${i + 1}`
+      );
+      //   specificInput.style.backgroundColor = "lightgreen";
+      specificInput.className = "correct";
+      console.log(`letter at position ${i} is correct`);
+    } else if (wordOfTheDay.includes(userGuess[i])) {
+      console.log(`${userGuess[i]} is included but wrong spot`);
+    }
+  }
+}
+
 document.addEventListener("keydown", (e) => {
   let rowInfo = userGuessLengthAndValue();
   if (e.key === "Enter" && rowInfo.inputLength === 5) {
@@ -61,20 +76,6 @@ document.addEventListener("keydown", (e) => {
     activeRow();
   }
 });
-
-function submittedGuessCheck(userGuess) {
-  for (let i = 0; i < 5; i++) {
-    if (userGuess[i] === wordOfTheDay[i]) {
-      let specificInput = document.querySelector(
-        `#row-${guessCounter}-input${i + 1}`
-      );
-      specificInput.style.backgroundColor = "lightgreen";
-      console.log(`letter at position ${i} is correct`);
-    } else if (wordOfTheDay.includes(userGuess[i])) {
-      console.log(`${userGuess[i]} is included but wrong spot`);
-    }
-  }
-}
 
 function activeRow() {
   for (let i = 0; i < wordleContainer.childElementCount; i++) {
