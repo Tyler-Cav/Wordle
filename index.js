@@ -103,6 +103,7 @@ function submittedGuessCheck(userGuess) {
 
 document.addEventListener("keydown", async (e) => {
   let rowInfo = userGuessLengthAndValue();
+  let userRowGuess = rowInfo.inputValue;
   if (
     e.key === "Enter" &&
     rowInfo.inputLength === 5 &&
@@ -110,14 +111,27 @@ document.addEventListener("keydown", async (e) => {
   ) {
     if (guessCounter === 5 && rowInfo.inputValue != wordOfTheDay) {
       let pTag = document.createElement("p");
-      pTag.innerText = `Better Luck Next Time! Todays Word: ${wordOfTheDay}`;
+      pTag.innerText = `Better Luck Next Time! Todays Word: ${wordOfTheDay.toUpperCase()}`;
       pTag.style.fontSize = "50px";
       pTag.style.textAlign = "center";
       wordleContainer.append(pTag);
     }
     guessCounter++;
-    submittedGuessCheck(rowInfo.inputValue);
-    activeRow();
+    submittedGuessCheck(userRowGuess);
+    if (userRowGuess === wordOfTheDay) {
+      let h2Tag = document.createElement("h2");
+      if (guessCounter === 1) {
+        h2Tag.innerText = `First Try No Sweat`;
+      } else {
+        h2Tag.innerText = `Congrats! Solved within ${guessCounter} attempts`;
+      }
+      h2Tag.style.fontSize = "50px";
+      h2Tag.style.textAlign = "center";
+      wordleContainer.insertBefore(h2Tag, wordleContainer.children[0]);
+      guessCounter = 7;
+    } else {
+      activeRow();
+    }
   }
 });
 
