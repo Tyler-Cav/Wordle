@@ -8,6 +8,10 @@
   margin: 0px;
   padding: 0px;
 }
+
+body {
+  background-color: rgb(123, 113, 113);
+}
 .wordle-container {
   margin: 0px;
 }
@@ -33,6 +37,9 @@ input {
   text-align: center;
   caret-color: transparent;
   text-transform: uppercase;
+  border-radius: 15px;
+  margin: 5px;
+  background-color: white;
 }
 
 .correct {
