@@ -34,6 +34,21 @@ function isLetter(letter) {
     letter === "Tab"
   );
 }
+
+function focusCheck(currentChild) {
+  if (currentChild.hasAttribute("focus")) {
+    currentChild.removeAttribute("focus");
+    let nextChild = currentChild.nextElementSibling;
+    if (nextChild && currentChild.value !== "") {
+      nextChild.setAttribute("focus", true);
+      nextChild.focus();
+    }
+  }
+}
+
+function Backspace() {
+  
+}
 // Creating the rows and inputs for each row
 for (let i = 0; i < 6; i++) {
   let guessingRow = document.createElement("ul");
@@ -41,13 +56,16 @@ for (let i = 0; i < 6; i++) {
   wordleContainer.append(guessingRow);
   for (let z = 0; z < 5; z++) {
     let letterInputSquare = document.createElement("input");
-    letterInputSquare.addEventListener("keydown", (e) => {
+    letterInputSquare.addEventListener("keyup", (e) => {
       if (!isLetter(e.key)) {
         e.preventDefault();
+      } else {
+        let currentChildInput = guessingRow.children[z];
+        focusCheck(currentChildInput);
       }
     });
     if (z === 0) {
-      letterInputSquare.setAttribute("autofocus", true);
+      letterInputSquare.setAttribute("focus", true);
     }
     letterInputSquare.setAttribute("maxlength", "1");
     letterInputSquare.setAttribute("id", `row-${i + 1}-input${z + 1}`);
@@ -144,6 +162,8 @@ function activeRow() {
       inputs.forEach((input) => {
         input.removeAttribute("disabled");
       });
+      let firstInputEachRow = document.querySelector(`#row-${i + 1}-input1`);
+      firstInputEachRow.focus();
     } else {
       inputs.forEach((input) => {
         input.setAttribute("disabled", true);
@@ -152,4 +172,7 @@ function activeRow() {
   }
 }
 
-activeRow();
+document.addEventListener("DOMContentLoaded", () => {
+  guessCounter = 0;
+  activeRow();
+});
