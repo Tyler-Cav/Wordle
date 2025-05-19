@@ -46,8 +46,18 @@ function focusCheck(currentChild) {
   }
 }
 
-function Backspace() {
-  
+function Backspace(currentChild) {
+  if (currentChild.hasAttribute("focus")) {
+    currentChild.value = "";
+    currentChild.removeAttribute("focus");
+    let previousChild = currentChild.previousElementSibling;
+    if (previousChild) {
+      previousChild.setAttribute("focus", true);
+      previousChild.focus();
+    }
+  } else {
+    currentChild.value = "";
+  }
 }
 // Creating the rows and inputs for each row
 for (let i = 0; i < 6; i++) {
@@ -57,10 +67,12 @@ for (let i = 0; i < 6; i++) {
   for (let z = 0; z < 5; z++) {
     let letterInputSquare = document.createElement("input");
     letterInputSquare.addEventListener("keyup", (e) => {
+      let currentChildInput = guessingRow.children[z];
       if (!isLetter(e.key)) {
         e.preventDefault();
+      } else if (e.key === "Backspace") {
+        Backspace(currentChildInput);
       } else {
-        let currentChildInput = guessingRow.children[z];
         focusCheck(currentChildInput);
       }
     });
