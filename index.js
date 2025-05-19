@@ -20,7 +20,6 @@ async function validateUserInput(word) {
 
 async function initializeGame() {
   await getWordOfTheDay();
-  await validateUserInput();
 }
 
 initializeGame();
@@ -47,16 +46,12 @@ function focusCheck(currentChild) {
 }
 
 function Backspace(currentChild) {
-  if (currentChild.hasAttribute("focus")) {
-    currentChild.value = "";
-    currentChild.removeAttribute("focus");
-    let previousChild = currentChild.previousElementSibling;
-    if (previousChild) {
-      previousChild.setAttribute("focus", true);
-      previousChild.focus();
-    }
-  } else {
-    currentChild.value = "";
+  currentChild.value = "";
+  currentChild.removeAttribute("focus");
+  let previousChild = currentChild.previousElementSibling;
+  if (previousChild) {
+    previousChild.setAttribute("focus", true);
+    previousChild.focus();
   }
 }
 // Creating the rows and inputs for each row
