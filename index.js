@@ -35,13 +35,10 @@ function isLetter(letter) {
 }
 
 function focusCheck(currentChild) {
-  if (currentChild.hasAttribute("focus")) {
-    currentChild.removeAttribute("focus");
-    let nextChild = currentChild.nextElementSibling;
-    if (nextChild && currentChild.value !== "") {
-      nextChild.setAttribute("focus", true);
-      nextChild.focus();
-    }
+  let nextChild = currentChild.nextElementSibling;
+  if (nextChild && currentChild.value !== "") {
+    nextChild.setAttribute("focus", true);
+    nextChild.focus();
   }
 }
 
