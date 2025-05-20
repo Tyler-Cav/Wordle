@@ -37,13 +37,13 @@ h1 {
 input {
   aspect-ratio: 1 / 1;
   width: 100%;
-  font-size: 4em;
+  font-size: 5em;
   text-align: center;
   caret-color: transparent;
   text-transform: uppercase;
   border-radius: 10px;
   margin: 5px;
-  padding: 5px;
+  padding: 2px;
   background-color: white;
   border: none;
 }
