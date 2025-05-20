@@ -58,11 +58,14 @@ for (let i = 0; i < 6; i++) {
   wordleContainer.append(guessingRow);
   for (let z = 0; z < 5; z++) {
     let letterInputSquare = document.createElement("input");
-    letterInputSquare.addEventListener("keyup", (e) => {
-      let currentChildInput = guessingRow.children[z];
+    letterInputSquare.addEventListener("keydown", (e) => {
       if (!isLetter(e.key)) {
         e.preventDefault();
-      } else if (e.key === "Backspace") {
+      }
+    });
+    letterInputSquare.addEventListener("keyup", (e) => {
+      let currentChildInput = guessingRow.children[z];
+      if (e.key === "Backspace") {
         Backspace(currentChildInput);
       } else {
         focusCheck(currentChildInput);
