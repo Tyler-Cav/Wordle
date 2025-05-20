@@ -37,17 +37,20 @@ h1 {
 input {
   aspect-ratio: 1 / 1;
   width: 100%;
-  font-size: 5em;
+  font-size: 2rem;
   text-align: center;
   caret-color: transparent;
   text-transform: uppercase;
   border-radius: 10px;
   margin: 5px;
-  padding: 2px;
   background-color: white;
   border: none;
+  box-shadow: 0px 3px 5px rgb(0, 0, 0, 0.7);
 }
 
+input:focus {
+  outline: rgb(37, 193, 232) solid 5px;
+}
 .correct {
   background-color: transparent;
   animation-name: correct-animation;
@@ -84,5 +87,17 @@ input {
 @keyframes not-in-word-animation {
   to {
     background-color: rgb(169, 169, 169);
+  }
+}
+
+@media (min-width: 768px) {
+  input {
+    font-size: 3rem; /* Larger font size for medium screens */
+  }
+}
+
+@media (min-width: 1200px) {
+  input {
+    font-size: 8rem; /* Even larger font size for large screens */
   }
 }
